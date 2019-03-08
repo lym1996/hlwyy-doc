@@ -1,0 +1,521 @@
+/*! variable */
+
+$fontsize0: 14px;
+$color-border: #e6e6e6;
+// $pct: %;
+$dirlist: top,
+bottom,
+left,
+right;
+
+/*! color */
+
+.el-switch__core {
+    height: 20px!important;
+}
+
+.bgcolor-transparent {
+    background-color: transparent;
+}
+
+.bgcolor-white {
+    background-color: #fff;
+}
+
+.color-transparent {
+    color: transparent;
+}
+
+.color-B2B2B2 {
+    color: #B2B2B2;
+}
+
+.color-white {
+    color: #fff;
+}
+
+.color-black {
+    color: #000;
+}
+
+.color-333 {
+    color: #333;
+}
+
+.color-666 {
+    color: #666;
+}
+
+.color-999 {
+    color: #999;
+}
+
+.color-73879C {
+    color: $color-title
+}
+
+.color425B77 {
+    color: #425B77;
+}
+.colorF6A810{
+    color:#F6A810;
+}
+
+.backE6E6E6 {
+    background: rgba(42, 63, 84, 0.04);
+}
+
+.color-ora {
+    color: $color-orange-cur
+}
+
+.dots {
+    display: inline-block;
+    width: 6px;
+    border-radius: 3px;
+    height: 6px;
+    margin-left: 4px;
+}
+
+.marginleft0 {
+    margin-left: 0!important;
+}
+
+.marginleft10 {
+    margin-left: 10px !important;
+}
+
+.marginleft20 {
+    margin-left: 20px !important;
+}
+
+.back539CDB {
+    background: #539CDB;
+}
+
+.back58B957 {
+    background: #58B957;
+}
+
+.backd33a37 {
+    background: #d33a37;
+}
+
+.backf49900 {
+    background: #f49900;
+}
+
+.back4087d5 {
+    background: #4087d5;
+}
+
+.backcccccc{
+    background: #cccccc;
+}
+.color-00BC9C {
+    color: $color-main
+}
+
+.color-red {
+    color: $color-red
+}
+
+
+/*! font-size */
+
+.fontsizeInherit {
+    font-size: inherit;
+}
+
+@for $i from -6 through 10 {
+    .fontsize#{$i} {
+        font-size: $fontsize0 + $i;
+    }
+}
+
+
+/*! margin padding */
+
+.marginXauto {
+    margin-left: auto;
+    margin-right: auto;
+}
+
+$i: 30;
+@while $i>-1 {
+    .margin#{$i}X {
+        margin-top: #{$i}px;
+        margin-bottom: #{$i}px;
+    }
+    .marginX#{$i} {
+        margin-left: #{$i}px;
+        margin-right: #{$i}px;
+    }
+    .padding#{$i}X {
+        padding-top: #{$i}px;
+        padding-bottom: #{$i}px;
+    }
+    .paddingX#{$i} {
+        padding-left: #{$i}px;
+        padding-right: #{$i}px;
+    }
+    $i: $i - 5;
+}
+
+$i: 30;
+@while $i>-1 {
+    @each $dir in $dirlist {
+        .margin#{$dir}#{$i} {
+            margin-#{$dir}: #{$i}px;
+        }
+        .padding#{$dir}#{$i} {
+            padding-#{$dir}: #{$i}px;
+        }
+    }
+    $i: $i - 5;
+}
+
+$i: 100;
+@while $i>30 {
+    @each $dir in $dirlist {
+        .margin#{$dir}#{$i} {
+            margin-#{$dir}: #{$i}px;
+        }
+        .padding#{$dir}#{$i} {
+            padding-#{$dir}: #{$i}px;
+        }
+    }
+    $i: $i - 10;
+}
+
+.cursorPointer {
+    cursor: pointer
+}
+
+
+/*! border */
+
+.bordernone {
+    border: none;
+}
+
+.border1 {
+    border: 1px solid $color-border;
+}
+
+.border1transparent {
+    border: 1px solid transparent;
+}
+
+@each $dir in $dirlist {
+    .border#{$dir}1 {
+        border-#{$dir}: 1px solid $color-border;
+    }
+}
+
+
+/*! border-radius */
+
+.borderRadius50 {
+    border-radius: 50%;
+}
+
+@each $i in 3,
+5 {
+    .borderRadius#{$i} {
+        border-radius: #{$i}px;
+    }
+}
+
+
+/*! float */
+
+.floatLeft {
+    float: left;
+}
+
+.floatRight {
+    float: right;
+}
+
+
+/*! width */
+
+@each $i in 25,
+33,
+50,
+100 {
+    .width#{$i} {
+        width: #{$i}*1%;
+    }
+}
+
+.width80p {
+    width: 80%;
+}
+
+
+/*! height */
+
+.height100 {
+    height: 100%;
+}
+
+
+/*! line-height */
+
+$i: 50;
+@while $i>15 {
+    .lineheight#{$i} {
+        line-height: #{$i}px;
+    }
+    $i: $i - 5;
+}
+
+.width250 {
+    width: 250px;
+}
+
+.bordertopnone {
+    border-top: none;
+}
+
+.main-container {
+    .el-menu--dark {
+        display: none;
+    }
+    .el-tabs__item {
+        color: #425B77;
+    }
+    .cell {
+        color: #425B77;
+    }
+}
+
+
+/*! display */
+
+.block {
+    display: block;
+}
+
+.inlineBlock {
+    display: inline-block;
+}
+
+.displayNone {
+    display: none;
+}
+
+
+/*! position */
+
+.relative {
+    position: relative;
+}
+
+.absolute {
+    position: absolute;
+}
+
+.fixed {
+    position: fixed;
+}
+
+.center {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.middle {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.centerMiddle {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+}
+
+$i: 20;
+@while $i>-20 {
+    @each $dir in $dirlist {
+        .#{$dir}#{$i} {
+            #{$dir}: #{$i}px;
+        }
+    }
+    $i: $i - 5;
+}
+
+
+/*! text-align */
+
+.textAlignCenter {
+    text-align: center;
+}
+
+.textAlignLeft {
+    text-align: left;
+}
+
+.textAlignRight {
+    text-align: right;
+}
+
+
+/*! rotate */
+
+.rotate90 {
+    transform: rotate(90deg);
+}
+
+.rotate180 {
+    transform: rotate(180deg);
+}
+
+
+/*! flex */
+
+.flex-justify {
+    display: flex;
+    justify-content: space-between;
+}
+
+.flex-align {
+    display: flex;
+    align-items: center;
+}
+
+.flex-align-justify {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.flex-baseline {
+    display: flex;
+    align-items: baseline;
+}
+
+.flex-spacearound {
+    display: flex;
+    justify-content: space-around;
+}
+
+.flex-spacebetween {
+    display: flex;
+    justify-content: space-between;
+}
+
+.flex-align-spacearound {
+    @extend .flex-align;
+    @extend .flex-spacearound;
+}
+
+.flex-align-spacebetween {
+    @extend .flex-align;
+    @extend .flex-spacebetween;
+}
+
+.flex-nowrap {
+    display: flex;
+    flex-wrap: nowrap;
+}
+
+.flex-column-spacearound {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+}
+
+.flex-align-start {
+    display: flex;
+    align-items: flex-start;
+}
+
+.itemflex-00auto {
+    flex: 0 0 auto;
+}
+
+.itemflex-11auto {
+    flex: 1 1 auto;
+}
+
+
+/*! cursor */
+
+.cursorPointer {
+    cursor: pointer;
+}
+
+.cursorDefault {
+    cursor: default;
+}
+
+
+/*! justify */
+
+.justify {
+    text-align: justify;
+    text-align-last: justify;
+}
+
+.justify:after {
+    display: inline-block;
+    content: '';
+    width: 100%;
+}
+
+.c-justify {
+    text-align: justify;
+}
+
+
+/*! other */
+
+.bold {
+    font-weight: bold;
+}
+
+.clear {
+    overflow: hidden;
+}
+
+.nowrap {
+    white-space: nowrap;
+}
+
+.lineEllipsis {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.width80 {
+    width: 80px;
+}
+
+.width160 {
+    width: 160px;
+}
+.width180{
+    width: 180px;
+}
+
+/*! mixin */
+
+@mixin mixin-whb($width, $height, $border) {
+    width: $width;
+    height: $height;
+    border: $border;
+}
+
+@mixin mixin-btn($minwidth, $minheight, $paddingtb, $paddinglf) {
+    min-width: $minwidth;
+    min-height: $minheight;
+    padding: $paddingtb $paddinglf;
+}
