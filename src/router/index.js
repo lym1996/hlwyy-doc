@@ -8,5 +8,8 @@ const router = new Router({
   routes
 })
 
+router.afterEach(route => {
+  window.document.title = route.meta.title
+})
 export default router
 

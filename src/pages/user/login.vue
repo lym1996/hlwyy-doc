@@ -31,7 +31,7 @@ export default {
   mounted() {},
   methods: {
     login(){
-      this.$router.push('/doctorFee')
+      this.$router.push('/patient')
     }
   }
 }

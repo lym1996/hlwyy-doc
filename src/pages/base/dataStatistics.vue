@@ -1,5 +1,5 @@
 <template>
     <div>
-        departFee
+        数据统计
     </div>
 </template>

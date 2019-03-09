@@ -24,26 +24,58 @@ const routerMap = [{
 
     const sideRoutes = [
         {
-            path: '/departFee',
-            name: 'departFee',
+            path: '/patient',
+            name: 'patientUser',
             meta: {
-                title: '科室工作及费用统计',
-                icon: 'ts-alfx'
+                title: '用户管理',
+                icon: 'ts-shezhi'
             },
             noDropdown: true,
             component: layout,
             children: [{
                 path: 'index',
                 alias: '',
-                meta: { title: '科室工作及费用统计' },
-                component: lazyload('dataCenter/departFee')
+                meta: { title: '用户管理' },
+                component: lazyload('base/patient')
             }] 
         },
         {
-            path: '/doctorFee',
-            name: 'doctorFee',
+            path: '/doctor',
+            name: 'doctorUser',
             meta: {
-                title: '医生工作及费用统计',
+                title: '医生管理',
+                icon: 'ts-shezhi'
+            },
+            noDropdown: true,
+            component: layout,
+            children: [{
+                path: 'index',
+                alias: '',
+                meta: { title: '医生管理' },
+                component: lazyload('base/doctor')
+            }] 
+        },
+        {
+            path: '/schedual',
+            name: 'schedual',
+            meta: {
+                title: '排班管理',
+                icon: 'ts-shezhi'
+            },
+            noDropdown: true,
+            component: layout,
+            children: [{
+                path: 'index',
+                alias: '',
+                meta: { title: '排班管理' },
+                component: lazyload('base/schedual')
+            }]  
+        },
+        {
+            path: '/dataStatistics',
+            name: 'dataStatistics',
+            meta: {
+                title: '数据统计',
                 icon: 'ts-alfx'
             },
             noDropdown: true,
@@ -51,9 +83,9 @@ const routerMap = [{
             children: [{
                 path: 'index',
                 alias: '',
-                meta: { title: '医生工作及费用统计' },
-                component: lazyload('dataCenter/doctorFee')
-            }] 
+                meta: { title: '数据统计' },
+                component: lazyload('base/dataStatistics')
+            }]   
         }
     ]
     const routes = [...routerMap, ...sideRoutes]
