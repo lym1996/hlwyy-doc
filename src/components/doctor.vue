@@ -1,5 +1,5 @@
 <template>
-    <div class="ts-content set-content bordertopnone doctor">
+    <div class="doctor margin20X">
         <el-row  class="bordernone">
             <el-col :span="6" class="depart">
                 <span>科室</span>
@@ -22,9 +22,9 @@
                 </el-input>
             </el-col>
         </el-row>
-        <el-row :span="24" class="margin20X">
+        <el-row class="margin20X">
             <el-button type="primary" @click="addDialogShow">新增</el-button>
-            <el-button type="danger" @click="deleteDoc">删除</el-button>
+            <el-button type="danger" @click="deleteDialogShow">删除</el-button>
         </el-row>
         <el-row class="margin20X">
             <el-col :span="24">
@@ -102,10 +102,11 @@
                     </el-col>
                 </el-row>
                 <el-row>
-                    <div style="margin-left:240px;">
+                    <div style="float:right;">
                     <el-button type="primary" @click="addDoc">确定</el-button>
-                    <el-button @click="resetForm('addInfo')">取消</el-button>
+                    <el-button @click="resetForm('addInfo',1)">取消</el-button>
                     </div>
+                    <div style="clear:both;"></div>
                 </el-row>
             </el-form>
         </el-dialog>
@@ -263,6 +264,22 @@ export default {
             this.editInfo.specialty = data.specialty
         },
         edit(){},
+        //新增弹框显示
+        addDialogShow(){
+            this.addDialog = true
+        },
+        //新增接口
+        addDoc(){
+            this.$refs['addInfo'].validate((valid) => {
+                if(valid) {
+                    //验证成功调接口
+                    console.log('成功')
+                }else {
+                    return false
+                    //验证失败跳提示
+                }
+            })
+        },
         //操作表格选择
         handleSelectionChange(val){
             let multipleSelection = []
@@ -272,23 +289,8 @@ export default {
             this.multipleSelection = multipleSelection.join(",")
             console.log('11',this.multipleSelection)
         },
-        //新增弹框显示
-        addDialogShow(){
-            this.addDialog = true
-        },
-        //新增接口
-        addDoc(){
-            this.$refs[addInfo].validate((valid) => {
-                if(valid) {
-                    //验证成功调接口
-                }else {
-                    return false
-                    //验证失败跳提示
-                }
-            })
-        },
         //删除弹框
-        deleteDoc(){
+        deleteDialogShow(){
             if(this.multipleSelection.length) {
                 const h = this.$createElement;
                 this.$msgbox({
@@ -321,19 +323,3 @@ export default {
     },
 }
 </script>
-<style lang="scss">
-.doctor{
-    .searchContent{
-        .el-select{
-            .el-input{
-                width:110px;
-            }
-        }
-        .input-with-select{
-            .el-input-group__prepend{
-                background-color: #fff;
-            }
-        }
-    }
-}
-</style>

@@ -24,8 +24,8 @@ const routerMap = [{
 
     const sideRoutes = [
         {
-            path: '/patient',
-            name: 'patientUser',
+            path: '/userInformation',
+            name: 'user',
             meta: {
                 title: '用户管理',
                 icon: 'ts-shezhi'
@@ -36,23 +36,7 @@ const routerMap = [{
                 path: 'index',
                 alias: '',
                 meta: { title: '用户管理' },
-                component: lazyload('base/patient')
-            }] 
-        },
-        {
-            path: '/doctor',
-            name: 'doctorUser',
-            meta: {
-                title: '医生管理',
-                icon: 'ts-shezhi'
-            },
-            noDropdown: true,
-            component: layout,
-            children: [{
-                path: 'index',
-                alias: '',
-                meta: { title: '医生管理' },
-                component: lazyload('base/doctor')
+                component: lazyload('base/userInformation')
             }] 
         },
         {

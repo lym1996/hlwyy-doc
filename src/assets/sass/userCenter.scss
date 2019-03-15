@@ -1,0 +1,45 @@
+//医生管理
+.doctor{
+    .searchContent{
+        .el-select{
+            .el-input{
+                width:110px;
+            }
+        }
+        .input-with-select{
+            .el-input-group__prepend{
+                background-color: #fff;
+            }
+        }
+    }
+}
+//患者管理
+.patient{
+    .searchContent{
+        .el-select{
+            .el-input{
+                width:110px;
+            }
+        }
+        .input-with-select{
+            .el-input-group__prepend{
+                background-color: #fff;
+            }
+        }
+    }
+}
+//管理员管理
+.admin{
+    .searchContent{
+        .el-select{
+            .el-input{
+                width:110px;
+            }
+        }
+        .input-with-select{
+            .el-input-group__prepend{
+                background-color: #fff;
+            }
+        }
+    } 
+}
