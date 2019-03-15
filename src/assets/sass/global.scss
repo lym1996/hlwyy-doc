@@ -208,7 +208,7 @@ $i: 100;
 }
 
 @each $dir in $dirlist {
-    .border#{$dir}1 {
+    .border#{$dir} {
         border-#{$dir}: 1px solid $color-border;
     }
 }
