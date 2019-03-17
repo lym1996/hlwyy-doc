@@ -21,7 +21,7 @@ export default {
     components: { doctor, patient, admin},
     data() {
         return {
-            activeName:'third',
+            activeName:'first',
         }
     },
     methods: {

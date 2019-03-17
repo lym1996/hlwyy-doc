@@ -1,3 +1,4 @@
+<!-- 患者管理-->
 <template>
     <div class="patient margin20X">
         <el-row>
