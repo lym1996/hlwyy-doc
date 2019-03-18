@@ -1,8 +1,8 @@
 <!-- 医生管理-->
 <template>
     <div class="doctor margin20X">
-        <el-row  class="bordernone">
-            <el-col :span="6" class="depart">
+        <el-row  class="bordernone ">
+            <el-col :span="6">
                 <span>科室</span>
                 <el-select v-model="department" filterable placeholder="请选择">
                     <el-option
