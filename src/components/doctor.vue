@@ -277,7 +277,7 @@ export default {
                     console.log('成功')
                 }else {
                     return false
-                    //验证失败跳提示
+                    //验证失败
                 }
             })
         },

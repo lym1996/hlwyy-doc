@@ -28,11 +28,29 @@ export default {
       passwordinput: '',
     }
   },
-  mounted() {},
+  mounted() {
+    // this.replacePic()
+  },
   methods: {
     login(){
       this.$router.push('/userInformation')
-    }
+    },
+    //更换登录左边的图
+    // replacePic(){
+    //   var div = document.querySelector(".ts-leftbg")
+    //   var img = div.querySelector("img")
+    //   img.src=""
+    // }
   }
 }
 </script>
+<style lang="scss">
+  //  .ts-logindiv{
+  //    .ts-formdiv{ 
+  //      .ts-inputdiv{
+  //        right: 150px!important;
+  //      }
+  //    }
+  //  }  
+</style>
+

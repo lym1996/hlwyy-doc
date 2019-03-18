@@ -116,8 +116,15 @@ export default {
   },
   mounted() {
     this.getVerifyCode()
+    // this.replacePic()
   },
   methods: {
+    //更换登录左边的图
+    // replacePic(){
+    //   var div = document.querySelector(".ts-leftbg")
+    //   var img = div.querySelector("img")
+    //   img.src=""
+    // },
     // 图形验证码
     getVerifyCode() {},
     // 短信验证码 phone, verifyCodeToken, verifyCode, hospitalId
