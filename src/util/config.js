@@ -1,7 +1,7 @@
 //请求基本信息配置
 import Qs from 'qs'
 
-const baseUrl = '';//接口地址
+const baseURL = 'http://192.168.22.207:8515';//接口地址
 
 const objBase = {
     //请求的接口，在请求的时候，如axios.get(url,config);这里的url会覆盖掉config中的url
