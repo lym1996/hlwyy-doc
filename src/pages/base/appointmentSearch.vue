@@ -1,5 +1,11 @@
 <template>
     <div class="ts-content set-content bordertopnone appointSearch">
+        <el-row class="marginbottom20">
+            <el-breadcrumb separator="/">
+                <el-breadcrumb-item>首页</el-breadcrumb-item>
+                <el-breadcrumb-item>预约查询</el-breadcrumb-item>
+            </el-breadcrumb>
+        </el-row>
         <el-row>
             <el-col :span="7">
                 <span>预约时间</span>

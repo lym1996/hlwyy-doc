@@ -1,5 +1,11 @@
 <template>
     <div class="ts-content set-content bordertopnone">
+        <el-row class="marginbottom20">
+            <el-breadcrumb separator="/">
+                <el-breadcrumb-item>首页</el-breadcrumb-item>
+                <el-breadcrumb-item>用户管理</el-breadcrumb-item>
+            </el-breadcrumb>
+        </el-row>
         <el-tabs v-model="activeName" @tab-click="handleClick">
             <el-tab-pane label="患者管理" name="first">
                 <patient></patient>

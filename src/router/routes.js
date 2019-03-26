@@ -40,8 +40,8 @@ const routerMap = [{
             }] 
         },
         {
-            path: '/schedual',
-            name: 'schedual',
+            path: '/schedualManage',
+            name: 'schedualManage',
             meta: {
                 title: '排班管理',
                 icon: 'ts-shezhi'
@@ -52,7 +52,7 @@ const routerMap = [{
                 path: 'index',
                 alias: '',
                 meta: { title: '排班管理' },
-                component: lazyload('base/schedual')
+                component: lazyload('base/schedualManage')
             }]  
         },
         {

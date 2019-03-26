@@ -283,12 +283,12 @@ export default {
         },
         //操作表格选择
         handleSelectionChange(val){
+            console.log(val)
             let multipleSelection = []
             for(let i=0; i< val.length; i++){
                 multipleSelection.push(val[i].docId)
             }
             this.multipleSelection = multipleSelection.join(",")
-            console.log('11',this.multipleSelection)
         },
         //删除弹框
         deleteDialogShow(){

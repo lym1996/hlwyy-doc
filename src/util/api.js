@@ -31,10 +31,16 @@ const postfile =  (_url, obj) => axios.post(_url, obj,{ baseURL: baseURL,headers
 const registrate = (param) => post2('/user/registration',param)
 const huoqu = (param) => post('/article/folder/save',param)
 const list = (token) => get('/article/listArticleFolder?token='+token)
+//获取本周排班信息
+const getWeekSchdule = (token,departmentId,type) => get('/scheduling/getWeak?token='+token+'&sectionId='+departmentId+'&type='+type)
+//获取具体日期上下午排班
+const getDaySchdule = (token,departmentId,timeType,date) => get('/scheduling/getByDate?token='+token+'&sectionId='+departmentId+'&timeType='+timeType+'&date='+date)
+//更新排班
+const updateSchdule = (param) => post('/scheduling/updateScheduling',param)
 //暴露接口
 export default {
     baseURL,
-    registrate,
-    huoqu,
-    list
+    getWeekSchdule,
+    getDaySchdule,
+    updateSchdule
 }

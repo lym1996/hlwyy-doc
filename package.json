@@ -19,6 +19,7 @@
     "node-sass": "^4.11.0",
     "tesla-ui": "^1.1.10",
     "vue": "^2.5.2",
+    "vue-qr": "^1.5.3",
     "vue-router": "^3.0.1"
   },
   "devDependencies": {
