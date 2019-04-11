@@ -4,12 +4,12 @@
         <el-row>
             <el-col :span="8" class="searchContent">
                 <el-input placeholder="请输入搜索内容" v-model="searchInput">
-                    <el-select v-model="searchType" slot="prepend" placeholder="请选择">
-                        <el-option label="用户名" value="0"></el-option>
-                        <el-option label="真实姓名" value="1"></el-option>
-                        <el-option label="手机号" value="2"></el-option>
+                    <el-select v-model="searchType" slot="prepend" placeholder="请选择" @change="changeType">
+                        <el-option label="全部" value="2"></el-option>
+                        <el-option label="患者姓名" value="1"></el-option>
+                        <el-option label="手机号" value="0"></el-option>
                     </el-select>
-                    <el-button slot="append" icon="el-icon-search"></el-button>
+                    <el-button slot="append" icon="el-icon-search" @click="search"></el-button>
                 </el-input>
             </el-col>
         </el-row>
@@ -25,29 +25,37 @@
                         <template slot-scope="props">
                             <el-form label-position="left">
                                 <el-form-item label="用户名">
-                                    <span>{{props.row.patName}}</span>
+                                    <span>{{props.row.phone}}</span>
                                 </el-form-item>
                                 <el-form-item label="真实姓名">
-                                    <span>{{props.row.patRealName}}</span>
+                                    <span>{{props.row.theName}}</span>
                                 </el-form-item>
                                 <el-form-item label="手机号">
-                                    <span>{{props.row.patPhone}}</span>
+                                    <span>{{props.row.patientPhone}}</span>
                                 </el-form-item>
                                 <el-form-item label="性别">
-                                    <span>{{props.row.patSex}}</span>
+                                    <span>{{props.row.sex}}</span>
                                 </el-form-item>
                                 <el-form-item label="身份证">
-                                    <span>{{props.row.patIdCard}}</span>
+                                    <span>{{props.row.cardId}}</span>
+                                </el-form-item>
+                                <el-form-item label="就诊卡号">
+                                    <span>{{props.row.patientCard}}</span>
+                                </el-form-item>
+                                <el-form-item label="出生日期">
+                                    <span>{{props.row.birthday}}</span>
                                 </el-form-item>
                             </el-form>
                         </template>
                     </el-table-column>
                     <el-table-column type="index" align="center" label="序号" width="50"></el-table-column>
-                    <el-table-column prop="patName" label="用户名"></el-table-column>
-                    <el-table-column prop="patRealName" label="真实姓名"></el-table-column>
-                    <el-table-column prop="patPhone" label="手机号"></el-table-column>
-                    <el-table-column prop="patSex" label="性别"></el-table-column>
-                    <el-table-column prop="patIdCard" label="身份证"></el-table-column>
+                    <el-table-column prop="phone" label="用户名"></el-table-column>
+                    <el-table-column prop="theName" label="真实姓名"></el-table-column>
+                    <el-table-column prop="patientPhone" label="手机号"></el-table-column>
+                    <el-table-column prop="sex" label="性别"></el-table-column>
+                    <el-table-column prop="cardId" label="身份证"></el-table-column>
+                    <el-table-column prop="patientCard" label="就诊卡号"></el-table-column>
+                    <el-table-column prop="birthday" label="出生日期"></el-table-column>
                     <el-table-column label="操作">
                         <template slot-scope="scope">
                             <el-button size="mini" @click="handleEdit(scope.row)">修改</el-button>
@@ -60,35 +68,47 @@
             <el-form :model="addInfo" :rules="rules" ref="addInfo" label-width="80px" style="margin-left:-12px;">
                 <el-row>
                     <el-col :span="12">
-                        <el-form-item label="用户名" prop="patName">
-                            <el-input v-model="addInfo.patName"></el-input>
+                        <el-form-item label="用户名" prop="phone">
+                            <el-input v-model="addInfo.phone"></el-input>
                         </el-form-item>
                     </el-col>
                     <el-col :span="12">
-                        <el-form-item label="真实姓名" prop="patRealName">
-                            <el-input v-model="addInfo.patRealName"></el-input>
-                        </el-form-item>
-                    </el-col>
-                </el-row>
-                <el-row>
-                    <el-col :span="12">
-                        <el-form-item label="手机号" prop="patPhone">
-                            <el-input v-model="addInfo.patPhone"></el-input>
-                        </el-form-item>
-                    </el-col>
-                    <el-col :span="12">
-                        <el-form-item label="身份证号" prop="patIdCard">
-                            <el-input v-model="addInfo.patIdCard"></el-input>
+                        <el-form-item label="真实姓名" prop="theName">
+                            <el-input v-model="addInfo.theName"></el-input>
                         </el-form-item>
                     </el-col>
                 </el-row>
                 <el-row>
                     <el-col :span="12">
-                        <el-form-item label="性别" prop="patSex">
-                            <el-select v-model="addInfo.patSex">
-                                <el-option label="男" value="1"></el-option>
-                                <el-option label="女" value="2"></el-option>
+                        <el-form-item label="手机号" prop="patientPhone">
+                            <el-input v-model="addInfo.patientPhone"></el-input>
+                        </el-form-item>
+                    </el-col>
+                    <el-col :span="12">
+                        <el-form-item label="身份证号" prop="cardId">
+                            <el-input v-model="addInfo.cardId"></el-input>
+                        </el-form-item>
+                    </el-col>
+                </el-row>
+                <el-row>
+                    <el-col :span="12">
+                        <el-form-item label="性别" prop="sex">
+                            <el-select v-model="addInfo.sex">
+                                <el-option label="男" value=1></el-option>
+                                <el-option label="女" value=0></el-option>
                             </el-select>
+                        </el-form-item>
+                    </el-col>
+                    <el-col :span="12">
+                        <el-form-item label="就诊卡号" prop="patientCard">
+                            <el-input v-model="addInfo.patientCard"></el-input>
+                        </el-form-item>
+                    </el-col>
+                </el-row>
+                <el-row>
+                    <el-col :span="12">
+                        <el-form-item label="出生日期" prop="birthday">
+                            <el-date-picker v-model="addInfo.birthday" type="date" placeholder="请选择日期"></el-date-picker>
                         </el-form-item>
                     </el-col>
                 </el-row>
@@ -105,35 +125,47 @@
             <el-form :model="editInfo" :rules="rules" ref="editInfo" label-width="80px" style="margin-left:-12px;">
                 <el-row>
                     <el-col :span="12">
-                        <el-form-item label="用户名" prop="patName">
-                            <el-input v-model="editInfo.patName"></el-input>
+                        <el-form-item label="用户名" prop="phone">
+                            <el-input v-model="editInfo.phone"></el-input>
                         </el-form-item>
                     </el-col>
                     <el-col :span="12">
-                        <el-form-item label="真实姓名" prop="patRealName">
-                            <el-input v-model="editInfo.patRealName"></el-input>
-                        </el-form-item>
-                    </el-col>
-                </el-row>
-                <el-row>
-                    <el-col :span="12">
-                        <el-form-item label="手机号" prop="patPhone">
-                            <el-input v-model="editInfo.patPhone"></el-input>
-                        </el-form-item>
-                    </el-col>
-                    <el-col :span="12">
-                        <el-form-item label="身份证号" prop="patIdCard">
-                            <el-input v-model="editInfo.patIdCard"></el-input>
+                        <el-form-item label="就诊人姓名" prop="theName">
+                            <el-input v-model="editInfo.theName"></el-input>
                         </el-form-item>
                     </el-col>
                 </el-row>
                 <el-row>
                     <el-col :span="12">
-                        <el-form-item label="性别" prop="patSex">
-                            <el-select v-model="editInfo.patSex">
-                                <el-option label="男" value="男"></el-option>
-                                <el-option label="女" value="女"></el-option>
+                        <el-form-item label="手机号" prop="patientPhone">
+                            <el-input v-model="editInfo.patientPhone"></el-input>
+                        </el-form-item>
+                    </el-col>
+                    <el-col :span="12">
+                        <el-form-item label="身份证号" prop="cardId">
+                            <el-input v-model="editInfo.cardId"></el-input>
+                        </el-form-item>
+                    </el-col>
+                </el-row>
+                <el-row>
+                    <el-col :span="12">
+                        <el-form-item label="性别" prop="sex">
+                            <el-select v-model="editInfo.sex">
+                                <el-option label="男" value="1"></el-option>
+                                <el-option label="女" value="0"></el-option>
                             </el-select>
+                        </el-form-item>
+                    </el-col>
+                    <el-col :span="12">
+                        <el-form-item label="就诊卡号" prop="patientCard">
+                            <el-input v-model="editInfo.patientCard"></el-input>
+                        </el-form-item>
+                    </el-col>
+                </el-row>
+                <el-row>
+                    <el-col :span="12">
+                        <el-form-item label="出生日期" prop="birthday">
+                            <el-date-picker v-model="editInfo.birthday" type="date" placeholder="请选择日期"></el-date-picker>
                         </el-form-item>
                     </el-col>
                 </el-row>
@@ -149,55 +181,92 @@
     </div>
 </template>
 <script>
+import axion from '@/util/api.js'
+const type = 168475913
 export default {
     data() {
         return {
+            token:'',
+            phone:'',//账号
             searchInput:'',//搜索内容
-            searchType:'0',//搜索类型
-            tabledata: [
-                {
-                    patName:'飞机',
-                    patRealName:'李三',
-                    patPhone:18888888888,
-                    patSex:'男',
-                    patIdCard:330481199612223211
-                },
-                {
-                  patName:'大炮',
-                    patRealName:'三金',
-                    patPhone:188453242888,
-                    patSex:'男',
-                    patIdCard:335343439612223211  
-                },
-                {
-                    patName:'坦克',
-                    patRealName:'李三',
-                    patPhone:13424248888,
-                    patSex:'男',
-                    patIdCard:3304811432456783211
-                }
-            ],
+            searchType:'2',//搜索类型
+            tabledata: [],
             multipleSelection:'',//删除用户
             addDialog:false,//新增弹框控制参数
             addInfo:{
-                patName:'',
-                patRealName:'',
-                patPhone:'',
-                patSex:'',
-                patIdCard:''
+                phone:'',
+                theName:'',
+                patientPhone:'',
+                sex:'',
+                cardId:'',
+                patientCard:'',
+                birthday:''
             },
             editDialog:false,
             editInfo:{
-                patName:'',
-                patRealName:'',
-                patPhone:'',
-                patSex:'',
-                patIdCard:''
+                id:'',
+                phone:'',
+                theName:'',
+                patientPhone:'',
+                sex:'',
+                cardId:'',
+                patientCard:'',
+                birthday:''
             },
             rules: {}
         }
     },
+    mounted() {
+        this.phone = localStorage.getItem("phone")
+        this.token = localStorage.getItem("token")
+        this.getPatient()
+    },
     methods: {
+        changeType(){
+                this.searchInput = ''
+        },
+        search(){
+            if(this.searchType == 2) {
+                this.getPatient()
+            }
+            else{
+                let param = {
+                    patientPhone:'',
+                    patientName:''
+                }
+                if(this.searchType == 0) {
+                    param.patientPhone = this.searchInput
+                }else if(this.searchType == 1) {
+                    param.patientName = this.searchInput
+                }
+                axion.selectPatient(param.patientPhone,param.patientName,this.token,this.searchType).then( res => {
+                    if(res.data.retCode == 0) {
+                        this.tabledata = res.data.param
+                        this.tabledata.forEach(obj => {
+                            if(obj.sex == 1) {
+                                obj.sex = '男'
+                            }else{
+                                obj.sex = '女'
+                            }
+                        })
+                    }
+                })
+            }
+        },
+        getPatient(){
+            axion.getPatient(this.phone,this.token,type).then( res => {
+                if(res.data.retCode == 0) {
+                    this.tabledata = res.data.param
+                    this.tabledata.forEach(obj => {
+                        if(obj.sex == 1) {
+                            obj.sex = '男'
+                        }else{
+                            obj.sex = '女'
+                        }
+                    })
+                }
+            })
+        },
         //重置表单 type==1 为关闭重置新增窗口  type==2 为关闭编辑窗口
         resetForm(formName,type){
             this.$refs[formName].resetFields();
@@ -211,25 +280,87 @@ export default {
         },
         handleEdit(data){
             this.editDialog = true
-            this.editInfo.patName = data.patName
-            this.editInfo.patRealName = data.patRealName
-            this.editInfo.patPhone = data.patPhone
-            this.editInfo.patSex = data.patSex
-            this.editInfo.patIdCard = data.patIdCard
+            this.editInfo.id = data.id
+            this.editInfo.phone = data.phone
+            this.editInfo.theName = data.theName
+            this.editInfo.patientPhone = data.patientPhone
+            this.editInfo.sex = data.sex
+            this.editInfo.cardId = data.cardId
+            this.editInfo.birthday = data.birthday
+            this.editInfo.patientCard = data.patientCard
         },
         edit(){
-            console.log('111',this.editInfo.patName)
+            let param = {
+                id:this.editInfo.id,
+                phone:this.editInfo.phone,
+                theName:this.editInfo.theName,
+                patientPhone:this.editInfo.patientPhone,
+                cardId:this.editInfo.cardId,
+                patientCard:this.editInfo.patientCard,
+                birthday:this.$moment(this.editInfo.birthday).format('YYYY-MM-DD'),
+                type:type,
+                token:this.token
+            }
+            if(this.editInfo.sex == '男') {
+                param.sex = 1
+            } else {
+                param.sex = 0
+            }
+            console.log(param,'param')
+            axion.editPatient(param).then(res => {
+                if(res.data.retCode == 0) {
+                    this.$message({
+                        type:'success',
+                        message:'修改成功'
+                    });
+                    this.editDialog = false
+                    this.getPatient()
+                }else {
+                    this.$message({
+                                type:'warning',
+                                message:res.data.retInfo
+                            });
+                }
+            })
         },
         addDialogShow(){
             this.addDialog = true
         },
         addUser(){
+            let param = {
+                phone:this.addInfo.phone,
+                theName:this.addInfo.theName,
+                patientPhone:this.addInfo.patientPhone,
+                sex:parseInt(this.addInfo.sex),
+                cardId:this.addInfo.cardId,
+                patientCard:this.addInfo.patientCard,
+                birthday:this.$moment(this.addInfo.birthday).format('YYYY-MM-DD'),
+                type:type,
+                token:this.token
+            }
             this.$refs['addInfo'].validate((valid) => {
                 if(valid) {
-                    //验证成功调接口
+                    axion.addPatient(param).then( res => {
+                        if(res.data.retCode == 0) {
+                            this.$message({
+                                type:'success',
+                                message:'添加成功'
+                            });
+                            this.addDialog = false
+                            this.getPatient()
+                        }else {
+                            this.$message({
+                                        type:'warning',
+                                        message:res.data.retInfo
+                                    });
+                        }
+                    })
                 }else {
+                    this.$message({
+                        type:'warning',
+                        message:'填写信息有误!'
+                    })
                     return false
-                    //验证失败跳提示
                 }
             })
         },
@@ -237,7 +368,7 @@ export default {
         handleSelectionChange(val){
             let multipleSelection = []
             for(let i=0; i< val.length; i++){
-                multipleSelection.push(val[i].patPhone)
+                multipleSelection.push(val[i].id)
             }
             this.multipleSelection = multipleSelection.join(",")
             console.log('11',this.multipleSelection)
@@ -271,7 +402,19 @@ export default {
             }
         },
         //删除接口
-        deleteUsers(){}
+        deleteUsers(){
+            let param = {
+                patientId: parseInt(this.multipleSelection),
+                token: this.token,
+                type: type
+            }
+            axion.deletePatient(param).then( res => {
+                if(res.data.retCode == 0) {
+                    this.getPatient()
+                    console.log('删除成功')
+                }
+            })
+        },
     },
 }
 </script>

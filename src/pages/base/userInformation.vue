@@ -7,7 +7,7 @@
             </el-breadcrumb>
         </el-row>
         <el-tabs v-model="activeName" @tab-click="handleClick">
-            <el-tab-pane label="患者管理" name="first">
+            <el-tab-pane label="就诊人管理" name="first">
                 <patient></patient>
             </el-tab-pane>
             <el-tab-pane label="医生管理" name="second">

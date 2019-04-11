@@ -16,7 +16,7 @@
             <el-row class="margin20X">
                 <el-col :span="4" v-for="(item,index) in departments" :key="index" class="paddingX5 marginbottom10">
                     <div class="department">
-                        <el-button @click="toNext(item.name,item.id)">{{item.name}}</el-button>
+                        <el-button @click="toNext(item.sectionId,item.sectionName)">{{item.sectionName}}</el-button>
                     </div>
                 </el-col>
             </el-row>
@@ -80,42 +80,17 @@
 <script>
 import axion from '@/util/api.js'
 import dialogSelectDoctor from '@/components/schedualDialog'
-const token = '7365d5cdb3780d4728151ed5feacea17'
+const hospitalId = 123456
 export default {
     components:{ dialogSelectDoctor },
     data() {
         return {
+            token:'',
             isfirst:true,//是否是第一步
             chooseDepart:'',//选择的科室
             departmentId:'',
             searchInput:'',//搜索科室输入
-            departments:[
-                {
-                    id:'0',
-                    name:'外科',
-                },{
-                    id:'1',
-                    name:'内科',
-                },{
-                    id:'2',
-                    name:'骨科',
-                },{
-                    id:'3',
-                    name:'想科',
-                },{
-                    id:'4',
-                    name:'哦科',
-                },{
-                    id:'5',
-                    name:'阿尔文科',
-                },{
-                    id:'6',
-                    name:'任务科',
-                },{
-                    id:'7',
-                    name:'客户科',
-                },
-            ],
+            departments:[],
                 //上面是选择科室步骤需要的参数
                 //下面是选择医生需要的参数
                 weekdays:[],//放入表格的日期
@@ -171,13 +146,21 @@ export default {
         }
     },
     mounted() {
-        // this.registra()
+        this.token = localStorage.getItem("token")
+        this.getDept()
     },
     methods: {
-        toNext(name,id){
+        getDept(){
+            axion.getDept(this.token,hospitalId).then( res => {
+                if(res.data.retCode == 0) {
+                    this.departments = res.data.param
+                }
+            })
+        },
+        toNext(id,name){
             this.isfirst = false
             this.chooseDepart = name
-            this.departmentId = 2123456
+            this.departmentId = id
             this.getSchedule(0)
         },
         back(){
@@ -225,7 +208,7 @@ export default {
             if(type == 2){//type 2 上周排班
                 this.searchType = 2
             }
-            axion.getWeekSchdule(token,this.departmentId,this.searchType).then( res =>{
+            axion.getWeekSchdule(this.token,this.departmentId,this.searchType).then( res =>{
                 if(res.data.retCode == 0){
                     this.timeList = res.data.param.timeList
                     this.amList = res.data.param.amList
@@ -291,34 +274,6 @@ export default {
                 }
             }
         },
-        
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-        //测试接口
-        registra(){
-            let folderName = 'come on';
-            let token = '31219150712823d93d57af306e3bb73d';
-            let a ={
-                token:'31219150712823d93d57af306e3bb73d'
-            }
-            axion.list(a.token).then(res => {
-                if(res.retCode == 0){
-                    console.log('nice')
-                }
-            })
-        }
     },
 }
 </script>

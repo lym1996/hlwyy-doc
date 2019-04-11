@@ -5,10 +5,13 @@ import App from './App'
 import router from './router'
 import el from 'element-ui'
 import ts from 'tesla-ui'
+import moment from 'moment'
 import 'tesla-ui/dist/index.css'
 import '@/assets/sass/sass-index.scss'
+Vue.prototype.$moment = moment
 Vue.use(el)
 Vue.use(ts)
+
 Vue.config.productionTip = false
 
 /* eslint-disable no-new */

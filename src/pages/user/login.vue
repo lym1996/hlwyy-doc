@@ -7,7 +7,7 @@
       <input type="password" placeholder="请输入密码" v-model="passwordinput" />
     </div>
     <div class="ts-loginlabel">
-      <el-checkbox v-model="checked">10天内自动登录</el-checkbox>
+      <!-- <el-checkbox v-model="checked">10天内自动登录</el-checkbox> -->
       <a class="ts-fogot" @click="$router.push('forget')">忘记密码？</a> 
     </div>
     <div class="ts-loginlabel">
@@ -16,6 +16,7 @@
   </ts-login>
 </template>
 <script>
+import axion from '@/util/api.js'
 export default {
   data() {
     return {
@@ -29,28 +30,47 @@ export default {
     }
   },
   mounted() {
-    // this.replacePic()
   },
   methods: {
     login(){
-      this.$router.push('/userInformation')
+      if(this.nameinput == ''){
+        this.$message({
+          type:'warning',
+          message:'请输入用户名'
+        });
+        return;
+      }
+      if(this.passwordinput == '') {
+        this.$message({
+          type:'warning',
+          message:'请输入密码'
+        });
+        return;
+      }
+      let param = {
+        userId:this.nameinput,
+        password:this.passwordinput,
+        type:168475913
+      }
+      axion.login(param).then( res => {
+        if(res.data.retCode == 0) {
+          this.$message({
+            type:'success',
+            message:'登录成功'
+          });
+          localStorage.setItem("token",res.data.param.token);
+          localStorage.setItem("phone",res.data.param.phone)
+          this.$router.push('/userInformation')
+        } else {
+          this.$message({
+            type:'warning',
+            message:res.data.retInfo
+          })
+        }
+      })
+      
     },
-    //更换登录左边的图
-    // replacePic(){
-    //   var div = document.querySelector(".ts-leftbg")
-    //   var img = div.querySelector("img")
-    //   img.src=""
-    // }
   }
 }
 </script>
-<style lang="scss">
-  //  .ts-logindiv{
-  //    .ts-formdiv{ 
-  //      .ts-inputdiv{
-  //        right: 150px!important;
-  //      }
-  //    }
-  //  }  
-</style>
 

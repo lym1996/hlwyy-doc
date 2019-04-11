@@ -16,9 +16,9 @@
                 <el-select v-model="department" filterable placeholder="请选择">
                     <el-option
                       v-for="item in departments"
-                      :key="item.value"
-                      :label="item.label"
-                      :value="item.value">
+                      :key="item.sectionId"
+                      :label="item.sectionName"
+                      :value="item.sectionId">
                     </el-option>
               </el-select>
             </el-col>
@@ -70,9 +70,12 @@
     </div>
 </template>
 <script>
+import axion from '@/util/api.js'
+const hospitalId = 123456
 export default {
     data(){
         return{
+            token:'',
             pickerOption: {
                shortcuts: [{
                   text: '最近一周',
@@ -102,18 +105,7 @@ export default {
             },
             date:'',
             department:'',
-            departments:[
-                {
-                    value:'妇产科',
-                    label:'妇产科'
-                },{
-                    value:'口腔科',
-                    label:'口腔科'
-                },{
-                    value:'耳鼻咽喉科',
-                    label:'耳鼻咽喉科'
-                }
-            ],
+            departments:[],
             tabeldata:[
                 {
                     appId:'3131213',
@@ -135,7 +127,17 @@ export default {
             multipleSelection:''
         }
     },
+    mounted() {
+        this.getDept()
+    },
     methods: {
+        getDept(){
+            axion.getDept(this.token,hospitalId).then( res => {
+                if(res.data.retCode == 0) {
+                    this.departments = res.data.param
+                }
+            })
+        },
         //操作选择
         handleSelectionChange(val){
             let multipleSelection = []

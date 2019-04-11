@@ -12,10 +12,13 @@
       </el-form-item>
       <el-form-item class="ts-loginlabel yzm hasbtn borderbottom1" prop="codeInput" label=" ">
         <el-input v-model="forgetdata1.codeInput" type="password" placeholder="输入图中验证码"></el-input>
-        <div class="ts-bgcolor-white marginbottom-1 paddingleft30 height-40"><img :src="forgetdata1.urlImg" class="cursorPointer" width="110" height="40"></div>
+        <div class="ts-bgcolor-white marginbottom-1 paddingleft30 height-40">
+          <el-button v-if="picShow" @click="getVerifyCode" style="height:40px;">获取图形验证码</el-button>
+          <img v-else :src="forgetdata1.urlImg" @click="getVerifyCode" class="cursorPointer" width="110" height="40">
+        </div>
       </el-form-item>
       <div class="ts-loginlabel">
-        <el-button type="primary" @click="next" :disabled="ablenext1">下一步</el-button>
+        <el-button type="primary" @click="next(1)" :disabled="ablenext1">下一步</el-button>
       </div>
     </el-form>
     <el-form v-else-if="active == 1" :model="forgetdata2" :rules="rules">
@@ -25,16 +28,17 @@
       <el-form-item class="ts-loginlabel yzm hasbtn borderbottom1" prop="codeInput" label=" ">
         <el-input v-model="forgetdata2.codeInput" type="password" placeholder="请输入短信验证码"></el-input>
         <div class="ts-bgcolor-white marginbottom-1 paddingleft30 height-40">
-          <el-button type="info" @click="getPasswordSendMsg">发送验证码</el-button>
+          <el-button type="info" v-if="hasSend" @click="getPasswordSendMsg">发送验证码</el-button>
+          <el-button type="info" v-else disabled>{{time}}s后重新发送</el-button>
         </div>
       </el-form-item>
       <div class="ts-loginlabel">
-        <el-button type="primary" @click="next" :disabled="ablenext2">下一步</el-button>
+        <el-button type="primary" @click="next(2)" :disabled="ablenext2">下一步</el-button>
       </div>
     </el-form>
     <el-form v-else-if="active == 2" :model="forgetdata3" :rules="rules">
       <el-form-item class="ts-loginlabel password borderbottom1" prop="newpwd1" label=" ">
-        <el-input v-model="forgetdata3.newpwd1" type="password" placeholder="设置数字加字母且8-16位密码"></el-input>
+        <el-input v-model="forgetdata3.newpwd1" type="password" placeholder="设置数字加字母且6-16位密码"></el-input>
       </el-form-item>
       <el-form-item class="ts-loginlabel password borderbottom1" prop="newpwd2" label=" ">
         <el-input v-model="forgetdata3.newpwd2" type="password" placeholder="确认新密码"></el-input>
@@ -50,9 +54,13 @@
   </ts-login>
 </template>
 <script>
+import axion from '@/util/api.js'
 export default {
   data() {
     return {
+      time:0,
+      hasSend:true,
+      picShow:true,
       toptab: [{
         text: '忘记密码'
       }],
@@ -67,19 +75,10 @@ export default {
         codeInput: ''
       },
       forgetdata3: {
+        phone:'',
         newpwd1: '',
-        newpwd2: ''
-      },
-      setMsgPrams: {
-        phone: '',
-        verifyCodeToken: '',
-        verifyCode: '',
-        hospitalId: ''
-      },
-      setPasswordPrams: {
-        phone: '',
-        passowrd: '',
-        validCode: ''
+        newpwd2: '',
+        codeInput:'',
       },
       rules: {
         nameInput: [{ validator: this.checkName, trigger: 'blur', }],
@@ -114,32 +113,84 @@ export default {
       this.ablenext3 = true;
     }
   },
-  mounted() {
-    this.getVerifyCode()
-    // this.replacePic()
-  },
+  mounted() {},
   methods: {
-    //更换登录左边的图
-    // replacePic(){
-    //   var div = document.querySelector(".ts-leftbg")
-    //   var img = div.querySelector("img")
-    //   img.src=""
-    // },
     // 图形验证码
-    getVerifyCode() {},
+    getVerifyCode() {
+				if(this.forgetdata1.nameInput == '') {
+					this.$message({
+						type: 'warning',
+						message: '请输入手机号'
+					});
+					return;
+				}else {
+          this.picShow = false;
+          let param = {
+            phone:this.forgetdata1.nameInput,
+            type:1
+          }
+          axion.getPicCode(param).then( res => {
+            if( res.data.retCode == 0) {
+              this.forgetdata1.urlImg = res.data.param.validate_code_url
+            } else {
+              this.$message({
+                type:'warning',
+                message:res.data.retInfo
+              })
+            }
+          })
+        }
+    },
     // 短信验证码 phone, verifyCodeToken, verifyCode, hospitalId
-    getPasswordSendMsg() {},
+    getPasswordSendMsg() {
+      let param = {
+        phone:this.forgetdata2.nameInput,
+        type:1,
+        picCode:this.forgetdata1.codeInput
+      }
+      axion.getMsgCode(param).then( res => {
+        if(res.data.retCode == 0) {
+          this.hasSend = false
+          this.$message({
+            type:'success',
+            message:'获取短信验证码成功'
+          });
+          this.time = 60;
+          let a =setInterval(() => {
+            this.time = this.time - 1;
+            if(this.time == 0) {
+              this.hasSend = true
+              clearInterval(a);
+            }
+          },1000)
+        }else {
+          this.$message({
+            type:'warning',
+            message:'获取短信验证码失败'
+          })
+        }
+      })
+    },
     // 重置密码 phone, passowrd, validCode
     resetPasswordDoctor() {
-      this.setPasswordPrams.phone = this.setMsgPrams.phone
-      this.setPasswordPrams.passowrd = this.forgetdata3.newpwd1
-      this.setPasswordPrams.validCode = this.forgetdata2.codeInput
       if (this.forgetdata3.newpwd1 != this.forgetdata3.newpwd2) {
         this.$message({
           message: '两次密码不相同',
           type: 'warning'
         });
+        return;
       } else {
+        let param = {
+          phone:this.forgetdata3.phone,
+          newPwd:this.forgetdata3.newpwd1,
+          msgCode:this.forgetdata3.codeInput
+        }
+        axion.reinputPasswoed(param).then( res => {
+          if(res.data.retCode == 0) {
+            this.$message.success("修改成功")
+            this.$router.push('/')
+          }
+        })
       }
     },
     checkName(rule, value, callback) {
@@ -163,10 +214,42 @@ export default {
         callback()
       }
     },
-    next() {
-      if (this.active < 2) {
-        this.active++
-        this.forgetdata2.nameInput = this.forgetdata1.nameInput
+    next(type) {
+      if(type == 1){
+        let param = {
+          phone:this.forgetdata1.nameInput,
+          picCode:this.forgetdata1.codeInput,
+          type:1
+        }
+        axion.verifyPictureCode(param).then( res => {
+          if(res.data.retCode == 0) {
+            console.log('图形验证码通过')
+            if (this.active < 2) {
+              this.active++
+              this.forgetdata2.nameInput = this.forgetdata1.nameInput
+            }
+          }else {
+            this.$message.warning(res.data.retInfo)
+          }
+        })
+      }else if(type == 2) {
+        let param = {
+          phone:this.forgetdata2.nameInput,
+          msgCode:this.forgetdata2.codeInput,
+          type:1
+        }
+        axion.verifyMsgCode(param).then( res => {
+          if(res.data.retCode == 0) {
+            console.log('短信验证码通过')
+            if(this.active < 2) {
+              this.active++
+              this.forgetdata3.phone = this.forgetdata2.nameInput
+              this.forgetdata3.codeInput = this.forgetdata2.codeInput
+            }
+          }else {
+            this.$message.warning(res.data.retInfo)
+          }
+        })
       }
     },
     back() {

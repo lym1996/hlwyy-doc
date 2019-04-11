@@ -93,10 +93,10 @@
 </template>
 <script>
 import axion from '@/util/api.js'
-const token = '7365d5cdb3780d4728151ed5feacea17'
 export default {
     data() {
         return {
+            token:'',
             //表格数据
             data:[],
             scheduleList:[],//已排班医生列表
@@ -106,6 +106,7 @@ export default {
         }
     },
     mounted() {
+        this.token = localStorage.getItem("token")
         this.getScheduleDocList();//获取排班医生表
     },
     methods: {
@@ -114,7 +115,7 @@ export default {
         },
         getScheduleDocList(){
             //接口获取 已排班医生列表和未排班医生列表
-            axion.getDaySchdule(token,this.departmentId,this.timeType,this.scheduleDate).then( res => {
+            axion.getDaySchdule(this.token,this.departmentId,this.timeType,this.scheduleDate).then( res => {
                 if(res.data.retCode == 0){
                     this.scheduleList = res.data.param.schedulingList
                     this.docList = res.data.param.nonSchedulingList
@@ -185,7 +186,7 @@ export default {
         updateSchedule(){
             let schduleList = JSON.stringify(this.newDocList)
             let param = {
-                token:token,
+                token:this.token,
                 sectionId:this.departmentId,
                 timeType:this.timeType,
                 date:this.scheduleDate,

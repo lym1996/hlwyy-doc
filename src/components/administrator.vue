@@ -1,17 +1,6 @@
 <!-- 管理员管理-->
 <template>
     <div class="admin margin20X">
-        <el-row>
-            <el-col :span="8" class="searchContent">
-                <el-input placeholder="请输入搜索内容" v-model="searchInput">
-                    <el-select v-model="searchType" slot="prepend" placeholder="请选择">
-                        <el-option label="姓名" value="0"></el-option>
-                        <el-option label="手机号" value="1"></el-option>
-                    </el-select>
-                    <el-button slot="append" icon="el-icon-search"></el-button>
-                </el-input>
-            </el-col>
-        </el-row>
         <el-row class="margin20X">
             <el-button type="primary" @click="addDialogShow">新增</el-button>
             <el-button type="danger" @click="deleteDialogShow">删除</el-button>
@@ -24,29 +13,29 @@
                         <template slot-scope="props">
                             <el-form label-position="left">
                                 <el-form-item label="姓名">
-                                    <span>{{props.row.adminName}}</span>
+                                    <span>{{props.row.theName}}</span>
                                 </el-form-item>
                                 <el-form-item label="职位">
                                     <span>{{props.row.adminLevel}}</span>
                                 </el-form-item>
                                 <el-form-item label="手机号">
-                                    <span>{{props.row.adminPhone}}</span>
+                                    <span>{{props.row.phone}}</span>
                                 </el-form-item>
                                 <el-form-item label="性别">
-                                    <span>{{props.row.adminSex}}</span>
+                                    <span>{{props.row.sex}}</span>
                                 </el-form-item>
-                                <el-form-item label="身份证">
-                                    <span>{{props.row.adminIdCard}}</span>
+                                <el-form-item label="创建时间">
+                                    <span>{{props.row.createTime}}</span>
                                 </el-form-item>
                             </el-form>
                         </template>
                     </el-table-column>
                     <el-table-column type="index" align="center" label="序号" width="50"></el-table-column>
-                    <el-table-column prop="adminName" label="姓名"></el-table-column>
+                    <el-table-column prop="theName" label="姓名"></el-table-column>
                     <el-table-column prop="adminLevel" label="职位"></el-table-column>
-                    <el-table-column prop="adminPhone" label="手机号"></el-table-column>
-                    <el-table-column prop="adminSex" label="性别"></el-table-column>
-                    <el-table-column prop="adminIdCard" label="身份证"></el-table-column>
+                    <el-table-column prop="phone" label="手机号"></el-table-column>
+                    <el-table-column prop="sex" label="性别"></el-table-column>
+                    <el-table-column prop="createTime" label="创建时间"></el-table-column>
                     <el-table-column label="操作">
                         <template slot-scope="scope">
                             <el-button size="mini" @click="handleEdit(scope.row)">修改</el-button>
@@ -60,34 +49,12 @@
                 <el-row>
                     <el-col :span="12">
                         <el-form-item label="姓名" prop="adminName">
-                            <el-input v-model="addInfo.adminName"></el-input>
+                            <el-input v-model="addInfo.theName"></el-input>
                         </el-form-item>
                     </el-col>
                     <el-col :span="12">
-                        <el-form-item label="职位" prop="adminLevel">
-                            <el-input v-model="addInfo.adminLevel"></el-input>
-                        </el-form-item>
-                    </el-col>
-                </el-row>
-                <el-row>
-                    <el-col :span="12">
-                        <el-form-item label="手机号" prop="adminPhone">
-                            <el-input v-model="addInfo.adminPhone"></el-input>
-                        </el-form-item>
-                    </el-col>
-                    <el-col :span="12">
-                        <el-form-item label="身份证号" prop="adminIdCard">
-                            <el-input v-model="addInfo.adminIdCard"></el-input>
-                        </el-form-item>
-                    </el-col>
-                </el-row>
-                <el-row>
-                    <el-col :span="12">
-                        <el-form-item label="性别" prop="adminSex">
-                            <el-select v-model="addInfo.adminSex">
-                                <el-option label="男" value="1"></el-option>
-                                <el-option label="女" value="2"></el-option>
-                            </el-select>
+                        <el-form-item label="手机号" prop="phone">
+                            <el-input v-model="addInfo.phone"></el-input>
                         </el-form-item>
                     </el-col>
                 </el-row>
@@ -104,35 +71,13 @@
             <el-form :model="editInfo" :rules="rules" ref="editInfo" label-width="80px" style="margin-left:-12px;">
                 <el-row>
                     <el-col :span="12">
-                        <el-form-item label="姓名" prop="adminName">
-                            <el-input v-model="editInfo.adminName"></el-input>
+                        <el-form-item label="姓名" prop="theName">
+                            <el-input v-model="editInfo.theName"></el-input>
                         </el-form-item>
                     </el-col>
                     <el-col :span="12">
-                        <el-form-item label="职位" prop="adminLevel">
-                            <el-input v-model="editInfo.adminLevel"></el-input>
-                        </el-form-item>
-                    </el-col>
-                </el-row>
-                <el-row>
-                    <el-col :span="12">
-                        <el-form-item label="手机号" prop="adminPhone">
-                            <el-input v-model="editInfo.adminPhone"></el-input>
-                        </el-form-item>
-                    </el-col>
-                    <el-col :span="12">
-                        <el-form-item label="身份证号" prop="adminIdCard">
-                            <el-input v-model="editInfo.adminIdCard"></el-input>
-                        </el-form-item>
-                    </el-col>
-                </el-row>
-                <el-row>
-                    <el-col :span="12">
-                        <el-form-item label="性别" prop="adminSex">
-                            <el-select v-model="editInfo.adminSex">
-                                <el-option label="男" value="男"></el-option>
-                                <el-option label="女" value="女"></el-option>
-                            </el-select>
+                        <el-form-item label="手机号" prop="phone">
+                            <el-input v-model="editInfo.phone"></el-input>
                         </el-form-item>
                     </el-col>
                 </el-row>
@@ -148,55 +93,52 @@
     </div>
 </template>
 <script>
+import axion from '@/util/api.js'
+const hospitalId = 123456
+const type = 168475913
 export default {
     data() {
         return {
+            token:'',
             searchInput:'',//搜索内容
             searchType:'0',//搜索类型
-            tabledata: [
-                {
-                    adminName:'管理123',
-                    adminLevel:'管理员',
-                    adminPhone:18888888888,
-                    adminSex:'男',
-                    adminIdCard:330481199612223211
-                },
-                {
-                  adminName:'456管理',
-                    adminLevel:'管理员',
-                    adminPhone:188453242888,
-                    adminSex:'男',
-                    adminIdCard:335343439612223211  
-                },
-                {
-                    adminName:'21管理1',
-                    adminLevel:'管理员',
-                    adminPhone:13424248888,
-                    adminSex:'男',
-                    adminIdCard:3304811432456783211
-                }
-            ],
+            tabledata: [],
             multipleSelection:'',//删除用户
             addDialog:false,//新增弹框控制参数
             addInfo:{
-                adminName:'',
-                adminLevel:'',
-                adminPhone:'',
-                adminSex:'',
-                adminIdCard:''
+                theName:'',
+                phone:''
             },
             editDialog:false,
             editInfo:{
-                adminName:'',
-                adminLevel:'',
-                adminPhone:'',
-                adminSex:'',
-                adminIdCard:''
+                theName:'',
+                phone:'',
+                id:'',
+                userId:''
             },
             rules: {}
         }
     },
+    mounted() {
+        this.token = localStorage.getItem("token")
+        this.getAllAdmin()
+    },
     methods: {
+        getAllAdmin(){
+            axion.getAllAdmin(this.token).then( res => {
+                if(res.data.retCode == 0) {
+                    this.tabledata = res.data.param
+                    for(let i = 0;i< this.tabledata.length; i++) {
+                        if(this.tabledata[i].sex == 1) {
+                            this.tabledata[i].sex = '女'
+                        }else {
+                            this.tabledata[i].sex = '男'
+                        }
+                        this.tabledata[i].adminLevel = '管理员'
+                    }
+                }
+            })
+        },
         //重置表单 type==1 为关闭重置新增窗口  type==2 为关闭编辑窗口
         resetForm(formName,type){
             this.$refs[formName].resetFields();
@@ -210,22 +152,48 @@ export default {
         },
         handleEdit(data){
             this.editDialog = true
-            this.editInfo.adminName = data.adminName
-            this.editInfo.adminLevel = data.adminLevel
-            this.editInfo.adminPhone = data.adminPhone
-            this.editInfo.adminSex = data.adminSex
-            this.editInfo.adminIdCard = data.adminIdCard
+            this.editInfo.theName = data.theName
+            this.editInfo.phone = data.phone
+            this.editInfo.id = data.id
+            this.editInfo.userId = data.userId
         },
         edit(){
-            console.log('111',this.editInfo.adminName)
+            let param = {
+                id:this.editInfo.id,
+                userId:this.editInfo.userId,
+                phone:this.editInfo.phone,
+                theName:this.editInfo.theName,
+                token:this.token
+            }
+            axion.editAdmin(param).then( res => {
+                if(res.data.retCode == 0) {
+                    this.$message.success("修改成功")
+                    this.editDialog = false
+                    this.getAllAdmin()
+                }
+            })
         },
         addDialogShow(){
             this.addDialog = true
         },
         addAdmin(){
+            let param = {
+                theName:this.addInfo.theName,
+                phone:this.addInfo.phone,
+                token:this.token
+            }
             this.$refs['addInfo'].validate((valid) => {
                 if(valid) {
-                    //验证成功调接口
+            
+            axion.addAdmin(param).then( res => {
+                if(res.data.retCode == 0) {
+                    this.$message.success('添加成功')
+                    this.addDialog = false
+                    this.getAllAdmin()
+                }else {
+                    this.$message.warning(res.data.retInfo)
+                }
+            })
                 }else {
                     return false
                     //验证失败跳提示
@@ -236,10 +204,10 @@ export default {
         handleSelectionChange(val){
             let multipleSelection = []
             for(let i=0; i< val.length; i++){
-                multipleSelection.push(val[i].adminPhone)
+                multipleSelection.push(val[i].userId)
             }
             this.multipleSelection = multipleSelection.join(",")
-            console.log('11',this.multipleSelection)
+            console.log('111',this.multipleSelection)
         },
         deleteDialogShow(){
             if(this.multipleSelection.length) {
@@ -270,7 +238,18 @@ export default {
             }
         },
         //删除接口
-        deleteUsers(){}
+        deleteUsers(){
+            let param = {
+                adminId:this.multipleSelection,
+                token:this.token
+            }
+            axion.deleteAdmin(param).then( res => {
+                if(res.data.retCode == 0) {
+                    console.log('删除成功')
+                    this.getAllAdmin()
+                }
+            })
+        }
     },
 }
 </script>

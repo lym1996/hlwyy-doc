@@ -26,17 +26,21 @@
 <script>
 import { sideRoutes } from '@/router/routes.js'
 import userphoto from '@/assets/logo.png'
+import axion from '@/util/api.js'
+const hospitalId = 123456
+const type = 168475913
 // import logo from '@/assets/img/default/hosLogo.png'
 // import simplelogo from '@/assets/img/default/simplelogo.png'
 // const ifnew = window.location.href.indexOf('new');
 export default {
   data() {
     return {
+      token:'',
       isCollapse: false,
       routeMenu: sideRoutes,
       userInfo: {
         userphoto: userphoto,
-        username: '个人中心'
+        username: localStorage.getItem("phone")
       },
       userMenu: [{
         text: '修改密码'
@@ -68,6 +72,9 @@ export default {
       }
     }
   },
+  mounted() {
+    this.token = localStorage.getItem("token")
+  },
   methods: {
     hideside(isCollapse) {
       this.isCollapse = isCollapse
@@ -75,7 +82,6 @@ export default {
     useritemclick(i) {
       if (i.text == '退出') {
         this.$message(`您选择了${i.text}`)
-        sessionStorage.clear();
         localStorage.clear();
         this.$router.push('/')
       }
@@ -90,7 +96,7 @@ export default {
     },
     //修改密码
     modifyPass(){
-      this.setPasswordPrams.password = this.modifyPass.oldPassword
+      this.setPasswordPrams.password = this.modify.oldPassword
       this.setPasswordPrams.newPassword = this.modify.newPassword
       if(this.modify.oldPassword !="" && this.modify.newPassword != "" && this.modify.newPassword2 != "") {
         if(this.modify.oldPassword == this.modify.newPassword) {
@@ -105,7 +111,21 @@ export default {
 					});
         }
         else {
+          console.log('123',this.setPasswordPrams)
           //调修改密码接口
+          let param = {
+            token:this.token,
+            newPwd:this.setPasswordPrams.newPassword,
+            oldPwd:this.setPasswordPrams.password
+          }
+          axion.changePassword(param).then( res => {
+            if(res.data.retCode == 0) {
+              this.$message.success('修改成功')
+              this.modifyDialog = false
+            }else {
+              this.$message.warning(res.data.retInfo)
+            }
+          })
         }
       }else {
         this.$message({
