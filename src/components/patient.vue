@@ -33,9 +33,6 @@
                                 <el-form-item label="手机号">
                                     <span>{{props.row.patientPhone}}</span>
                                 </el-form-item>
-                                <el-form-item label="性别">
-                                    <span>{{props.row.sex}}</span>
-                                </el-form-item>
                                 <el-form-item label="身份证">
                                     <span>{{props.row.cardId}}</span>
                                 </el-form-item>
@@ -52,7 +49,6 @@
                     <el-table-column prop="phone" label="用户名"></el-table-column>
                     <el-table-column prop="theName" label="真实姓名"></el-table-column>
                     <el-table-column prop="patientPhone" label="手机号"></el-table-column>
-                    <el-table-column prop="sex" label="性别"></el-table-column>
                     <el-table-column prop="cardId" label="身份证"></el-table-column>
                     <el-table-column prop="patientCard" label="就诊卡号"></el-table-column>
                     <el-table-column prop="birthday" label="出生日期"></el-table-column>

@@ -81,9 +81,17 @@ export default {
     },
     useritemclick(i) {
       if (i.text == '退出') {
-        this.$message(`您选择了${i.text}`)
-        localStorage.clear();
-        this.$router.push('/')
+        let param = {
+          token:this.token
+        }
+        axion.logout(param).then( res => {
+          if(res.data.retCode == 0) {
+            this.$message(`您选择了${i.text}`)
+            localStorage.clear();
+            this.$router.push('/')
+          }
+        })
+        
       }
       if (i.text == '修改密码') {
         this.modifyDialog = true

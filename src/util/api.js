@@ -36,6 +36,8 @@ const reinputPasswoed = (param) => post('/user/reinputPasswoed',param)
 const getDept = (token,hospitalId) => get('/section/getByHosId?token='+token+'&hospitalId'+hospitalId)
 //登录
 const login = (param) => post('/user/login',param)
+//退出
+const logout = (param) => post('/user/logout',param)
 //获取图形验证码
 const getPicCode = (param) => post('user/getPictureCode',param)
 //验证图形验证码
@@ -84,6 +86,7 @@ const updateSchdule = (param) => post('/scheduling/updateScheduling',param)
 export default {
     baseURL,
     login,
+    logout,
     verifyPictureCode,
     verifyMsgCode,
     reinputPasswoed,
