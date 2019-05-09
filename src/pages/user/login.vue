@@ -1,5 +1,6 @@
 <template>
-  <ts-login :top-tab="toptab" :logo="logopic">
+  <ts-login :top-tab="toptab">
+    <div class="absolute" style="top:-120px;left:-20px;color:#fff;font-size:35px;">后台管理系统</div>
     <div class="ts-loginlabel username" style="margin-top:20px;">
       <input type="text" placeholder="请输入用户名" v-model="nameinput" />
     </div>
@@ -20,7 +21,6 @@ import axion from '@/util/api.js'
 export default {
   data() {
     return {
-      logopic:'',
       checked: true,
       toptab: [{
         text: '账号登录'
@@ -30,6 +30,7 @@ export default {
     }
   },
   mounted() {
+    this.replacelogo()
   },
   methods: {
     login(){
@@ -70,6 +71,12 @@ export default {
       })
       
     },
+    replacelogo(){
+      var logo = document.querySelector(".logo")
+      logo.src = ""
+      var div = document.querySelector(".ts-logindiv")
+      div.style.marginTop = "60px"
+    }
   }
 }
 </script>

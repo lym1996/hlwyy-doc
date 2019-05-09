@@ -8,11 +8,6 @@
             </el-breadcrumb>
         </el-row>
         <div v-if="isfirst">
-            <el-row class="marginleft5">
-                <el-input placeholder="请输入科室名称" v-model="searchInput" style="width:300px;" >
-                    <el-button slot="append" icon="el-icon-search"></el-button>
-                </el-input>
-            </el-row>
             <el-row class="margin20X">
                 <el-col :span="4" v-for="(item,index) in departments" :key="index" class="paddingX5 marginbottom10">
                     <div class="department">

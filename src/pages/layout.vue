@@ -25,16 +25,18 @@
 </template>
 <script>
 import { sideRoutes } from '@/router/routes.js'
-import userphoto from '@/assets/logo.png'
+import userphoto from '@/assets/img/doctor.png'
 import axion from '@/util/api.js'
 const hospitalId = 123456
 const type = 168475913
-// import logo from '@/assets/img/default/hosLogo.png'
+import logo from '@/assets/img/1528430211913.png'
+import simplelogo from '@/assets/img/hospital.png'
 // import simplelogo from '@/assets/img/default/simplelogo.png'
 // const ifnew = window.location.href.indexOf('new');
 export default {
   data() {
     return {
+      logo:logo,
       token:'',
       isCollapse: false,
       routeMenu: sideRoutes,
@@ -48,8 +50,7 @@ export default {
         text: '退出'
       }],
       activeIndex: '1',
-      logo:userphoto,
-      simplelogo:userphoto,
+      simplelogo:simplelogo,
       modifyDialog:false,
       //输入的密码
       modify:{

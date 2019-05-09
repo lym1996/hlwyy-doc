@@ -54,39 +54,40 @@ const routerMap = [{
                 meta: { title: '排班管理' },
                 component: lazyload('base/schedualManage')
             }]  
-        },
-        {
-            path: '/appointmentSearch',
-            name: 'appointmentSearch',
-            meta: {
-                title: '预约查询',
-                icon: 'ts-alfx'
-            },
-            noDropdown: true,
-            component: layout,
-            children: [{
-                path: 'index',
-                alias: '',
-                meta: { title: '预约查询' },
-                component: lazyload('base/appointmentSearch')
-            }]   
-        },
-        {
-            path: '/dataStatistics',
-            name: 'dataStatistics',
-            meta: {
-                title: '数据统计',
-                icon: 'ts-alfx'
-            },
-            noDropdown: true,
-            component: layout,
-            children: [{
-                path: 'index',
-                alias: '',
-                meta: { title: '数据统计' },
-                component: lazyload('base/dataStatistics')
-            }]   
         }
+        // },
+        // {
+        //     path: '/appointmentSearch',
+        //     name: 'appointmentSearch',
+        //     meta: {
+        //         title: '预约查询',
+        //         icon: 'ts-alfx'
+        //     },
+        //     noDropdown: true,
+        //     component: layout,
+        //     children: [{
+        //         path: 'index',
+        //         alias: '',
+        //         meta: { title: '预约查询' },
+        //         component: lazyload('base/appointmentSearch')
+        //     }]   
+        // },
+        // {
+        //     path: '/dataStatistics',
+        //     name: 'dataStatistics',
+        //     meta: {
+        //         title: '数据统计',
+        //         icon: 'ts-alfx'
+        //     },
+        //     noDropdown: true,
+        //     component: layout,
+        //     children: [{
+        //         path: 'index',
+        //         alias: '',
+        //         meta: { title: '数据统计' },
+        //         component: lazyload('base/dataStatistics')
+        //     }]   
+        // }
     ]
     const routes = [...routerMap, ...sideRoutes]
 

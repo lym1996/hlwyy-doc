@@ -1,5 +1,6 @@
 <template>
   <ts-login :top-tab="toptab" class="g-login">
+    <div class="absolute" style="top:-120px;left:-20px;color:#fff;font-size:35px;">后台管理系统</div>
     <a class="back" @click="back" v-if="active>0">返回上级</a>
     <el-steps :active="active">
       <el-step title="填写账号"></el-step>
@@ -113,7 +114,9 @@ export default {
       this.ablenext3 = true;
     }
   },
-  mounted() {},
+  mounted() {
+    this.replacelogo()
+  },
   methods: {
     // 图形验证码
     getVerifyCode() {
@@ -256,6 +259,12 @@ export default {
       if (this.active > 0) {
         this.active--
       }
+    },
+    replacelogo(){
+      var logo = document.querySelector(".logo")
+      logo.src = ""
+      var div = document.querySelector(".ts-logindiv")
+      div.style.marginTop = "60px"
     }
   }
 }
